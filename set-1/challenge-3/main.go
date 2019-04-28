@@ -1,4 +1,4 @@
-package main
+package challenge3
 
 import (
 	"encoding/hex"
@@ -13,7 +13,7 @@ func main() {
 	SingleByteDecoder(in)
 }
 
-func SingleByteDecoder(in string) string {
+func SingleByteDecoder(in string) (string, float32) {
 	var highscore float32
 	var highscorestring string
 
@@ -22,7 +22,7 @@ func SingleByteDecoder(in string) string {
 	for _, item := range hexChars {
 		res := SingleByteXOR(in, string(item))
 		score := ScoreString(res)
-		fmt.Printf("%s (with score %f)\n", res, score)
+		fmt.Printf("%f\t%q\n", score, res)
 
 		if score > highscore {
 			highscore = score
@@ -32,10 +32,7 @@ func SingleByteDecoder(in string) string {
 		}
 	}
 
-	fmt.Println("------------------------------------------------")
-	fmt.Printf("Highscore was %s with score %f\n", highscorestring, highscore)
-
-	return highscorestring
+	return highscorestring, highscore
 }
 
 func SingleByteXOR(enc, c string) string {
